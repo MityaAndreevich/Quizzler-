@@ -10,6 +10,8 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    var quizBrain = QuizBrain()
+    
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var questionLabel: UILabel!
@@ -17,21 +19,16 @@ class ViewController: UIViewController {
     @IBOutlet weak var choiceThree: UIButton!
     @IBOutlet weak var choiceOne: UIButton!
     
-    var quizBrain = QuizBrain()
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
         updateUI()
     }
     
     @IBAction func answerButtonPressed(_ sender: UIButton) {
         
-        
         let userAnswer = sender.currentTitle!
         let userGotItRight = quizBrain.checkAnswer(userAnswer)
-       
         
         if userGotItRight {
             sender.backgroundColor = UIColor.green
@@ -41,13 +38,10 @@ class ViewController: UIViewController {
         
         quizBrain.nextQuestion()
         
-        
         Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(updateUI), userInfo: nil, repeats: false)
-       
     }
     
     @objc func updateUI() {
-        
         
         choiceOne.setTitle(quizBrain.getAnswers()[0], for: .normal)
         choiceTwo.setTitle(quizBrain.getAnswers()[1], for: .normal)
